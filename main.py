@@ -231,12 +231,14 @@ def ve_ban_do():
             doan_thang, = ax.plot([x0, x1], [y0, y1], 'b')
     return fig
 
-def init_city_selectbox():
-    start_city = st.selectbox('Bạn chọn thành phố bắt đầu:', lst_city)
-    dest_city = st.selectbox('Bạn chọn thành phố đích:', lst_city)
-
-    st.session_state['start_city'] = start_city
-    st.session_state['dest_city'] = dest_city
+st.markdown("<h2 style='text-align: center;'>Roman Map</h2>", unsafe_allow_html=True)
+st.markdown("""
+            <style>
+            button {
+                width: 100px!important;
+            }
+            </style>
+            """, unsafe_allow_html=True)
 
 if 'flag_anim' not in st.session_state or st.session_state['flag_anim'] == False:
     if 'flag_ve_ban_do' not in st.session_state or st.session_state['flag_ve_ban_do'] == False:
@@ -249,16 +251,22 @@ if 'flag_anim' not in st.session_state or st.session_state['flag_anim'] == False
         print('Da ve ban do')
         st.pyplot(st.session_state['fig'])
         
-    start_city = st.selectbox('Bạn chọn thành phố bắt đầu:', lst_city)
-    dest_city = st.selectbox('Bạn chọn thành phố đích:', lst_city)
+    st.divider()
+
+    start_city = st.selectbox('Bạn chọn thành phố bắt đầu:', lst_city, index=None, placeholder="Chọn thành phố bắt đầu...")
+    dest_city = st.selectbox('Bạn chọn thành phố đích:', lst_city, index=None, placeholder="Chọn thành phố đích...")
 
     st.session_state['start_city'] = start_city
     st.session_state['dest_city'] = dest_city
 
-    if st.button('Direction'):
+    st.divider()
+
+    _, col1, col2, _ = st.columns(4)
+    
+    if col1.button('Direction'):
         direction_click()
 
-    if st.button('Run'):
+    if col2.button('Run'):
         run_click()
 else:
     anim = st.session_state['anim']
